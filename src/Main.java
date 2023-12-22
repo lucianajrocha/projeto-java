@@ -39,30 +39,31 @@ public class Main {
                         System.out.println("Email ou senha incorretos!");
                         break;
                     }
-
-                    menu.mostrarMenuVendedor();
-                    menu.setOpcao(Integer.parseInt(leia.nextLine()));
-                    switch(menu.getOpcao()) {
-                        case 1:
-                            System.out.println("Cadastrar livro");
-                            break;
-                        case 2:
-                            System.out.println("Remover livro");
-                            break;
-                        case 3:
-                            System.out.println("Listar livros");
-                            break;
-                        case 4:
-                            System.out.println("Alterar livro");
-                            break;
-                        case 0:
-                            System.out.println("Saindo...");
-                            vendedorAutenticado = false;
-                            break;
-                        default:
-                            System.out.println("Opção inválida!");
-                            break;
-                    }
+                    do {
+                        menu.mostrarMenuVendedor();
+                        menu.setOpcaoVendedor(Integer.parseInt(leia.nextLine()));
+                        switch(menu.getOpcaoVendedor()) {
+                            case 1:
+                                System.out.println("Cadastrar livro");
+                                break;
+                            case 2:
+                                System.out.println("Remover livro");
+                                break;
+                            case 3:
+                                System.out.println("Listar livros");
+                                break;
+                            case 4:
+                                System.out.println("Alterar livro");
+                                break;
+                            case 0:
+                                System.out.println("Saindo...");
+                                vendedorAutenticado = false;
+                                break;
+                            default:
+                                System.out.println("Opção inválida!");
+                                break;
+                        }
+                    } while (menu.getOpcaoVendedor() != 0);
                     break;
                 case 2:
                     System.out.println("Digite seu email: ");
@@ -83,23 +84,25 @@ public class Main {
                         break;
                     }
 
-                    menu.mostrarMenuComprador();
-                    menu.setOpcao(Integer.parseInt(leia.nextLine()));
-                    switch(menu.getOpcao()) {
-                        case 1:
-                            System.out.println("Listar livros");
-                            break;
-                        case 2:
-                            System.out.println("Comprar livro");
-                            break;
-                        case 0:
-                            System.out.println("Saindo...");
-                            compradorAutenticado = false;
-                            break;
-                        default:
-                            System.out.println("Opção inválida!");
-                            break;
-                    }
+                    do {
+                        menu.mostrarMenuComprador();
+                        menu.setOpcaoComprador(Integer.parseInt(leia.nextLine()));
+                        switch(menu.getOpcaoComprador()) {
+                            case 1:
+                                System.out.println("Listar livros");
+                                break;
+                            case 2:
+                                System.out.println("Comprar livro");
+                                break;
+                            case 0:
+                                System.out.println("Saindo...");
+                                compradorAutenticado = false;
+                                break;
+                            default:
+                                System.out.println("Opção inválida!");
+                                break;
+                        }
+                    } while (menu.getOpcaoComprador() != 0);
                     break;
                 case 3:
                     System.out.println("Digite seu email: ");
