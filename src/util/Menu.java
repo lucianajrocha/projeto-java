@@ -47,7 +47,6 @@ public class Menu {
         System.out.println("1 - Cadastrar livro");
         System.out.println("2 - Remover livro");
         System.out.println("3 - Listar livros");
-        System.out.println("4 - Alterar livro");
         System.out.println("0 - Sair");
         System.out.println("********************************************");
     }

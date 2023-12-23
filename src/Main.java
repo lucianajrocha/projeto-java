@@ -1,8 +1,7 @@
-import model.Cliente;
-import model.Endereco;
-import model.Vendedor;
+import model.*;
 import util.Menu;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Main {
@@ -13,12 +12,19 @@ public class Main {
         Menu menu = new Menu();
         Cliente[] listaClientes = new Cliente[100];
         Vendedor[] listaVendedores = new Vendedor[100];
+        Livraria livraria = new Livraria();
         boolean vendedorAutenticado = false;
         boolean compradorAutenticado = false;
 
         do {
             menu.mostrarMenuInicial();
-            menu.setOpcao(Integer.parseInt(leia.nextLine()));
+
+            try {
+                menu.setOpcao(Integer.parseInt(leia.nextLine()));
+            } catch (NumberFormatException e) {
+                System.out.println("\nDigite valores inteiros!");
+                menu.setOpcao(100);
+            }
 
             switch (menu.getOpcao()) {
                 case 1:
@@ -34,26 +40,38 @@ public class Main {
                             break;
                         }
                     }
-
                     if (!vendedorAutenticado) {
                         System.out.println("Email ou senha incorretos!");
                         break;
                     }
                     do {
                         menu.mostrarMenuVendedor();
-                        menu.setOpcaoVendedor(Integer.parseInt(leia.nextLine()));
-                        switch(menu.getOpcaoVendedor()) {
+                        try {
+                            menu.setOpcaoVendedor(Integer.parseInt(leia.nextLine()));
+                        } catch (NumberFormatException e) {
+                            System.out.println("\nDigite valores inteiros!");
+                            menu.setOpcaoVendedor(100);
+                        }
+                        switch (menu.getOpcaoVendedor()) {
                             case 1:
-                                System.out.println("Cadastrar livro");
+                                System.out.println("Digite o titulo do livro: ");
+                                String tituloLivro = leia.nextLine();
+                                System.out.println("Digite o autor do livro: ");
+                                String autorLivro = leia.nextLine();
+                                System.out.println("Digite o valor do livro: ");
+                                double valorLivro = leia.nextDouble();
+                                leia.nextLine(); //Limpar o buffer
+                                Livro novoLivro = new Livro(tituloLivro, autorLivro, valorLivro);
+                                livraria.adicionarLivro(novoLivro);
                                 break;
                             case 2:
-                                System.out.println("Remover livro");
+                                livraria.imprimirListaComID();
+                                System.out.println("Digite o ID do livro a ser removido: ");
+                                int idParaRemover = Integer.parseInt(leia.nextLine());
+                                livraria.removerDaListaPeloID(idParaRemover);
                                 break;
                             case 3:
-                                System.out.println("Listar livros");
-                                break;
-                            case 4:
-                                System.out.println("Alterar livro");
+                                livraria.imprimirLista();
                                 break;
                             case 0:
                                 System.out.println("Saindo...");
@@ -86,13 +104,21 @@ public class Main {
 
                     do {
                         menu.mostrarMenuComprador();
-                        menu.setOpcaoComprador(Integer.parseInt(leia.nextLine()));
-                        switch(menu.getOpcaoComprador()) {
+                        try {
+                            menu.setOpcaoComprador(Integer.parseInt(leia.nextLine()));
+                        } catch (NumberFormatException e) {
+                            System.out.println("\nDigite valores inteiros!");
+                            menu.setOpcaoComprador(100);
+                        }
+                        switch (menu.getOpcaoComprador()) {
                             case 1:
-                                System.out.println("Listar livros");
+                                livraria.imprimirLista();
                                 break;
                             case 2:
-                                System.out.println("Comprar livro");
+                                livraria.imprimirListaComID();
+                                System.out.println("Digite o ID do livro a ser comprado: ");
+                                int idParaComprar = Integer.parseInt(leia.nextLine());
+                                System.out.println("O total sera: " + livraria.getLista().get(idParaComprar).getValor() + " dirija-se ao caixa ");
                                 break;
                             case 0:
                                 System.out.println("Saindo...");
